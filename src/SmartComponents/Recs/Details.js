@@ -17,6 +17,8 @@ import {
     Label,
     Split,
     SplitItem,
+    Stack,
+    StackItem,
     TextArea
 } from '@patternfly/react-core';
 import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components';
@@ -30,6 +32,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import Markdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
 
 const Details = ({ match, fetchContentDetails, details, fetchContentDetailsHits, contentDetailsHits }) => {
     const [selectedListItem, setSelectedListItem] = useState(0);
@@ -123,6 +128,14 @@ const Details = ({ match, fetchContentDetails, details, fetchContentDetailsHits,
         );
     };
 
+    const ruleDescription = (data, isGeneric) =>
+        typeof data === 'string' &&
+        Boolean(data) && (
+            <span className={isGeneric && 'genericOverride'}>
+                <Markdown rehypePlugins={[rehypeRaw, rehypeSanitize]}>{data}</Markdown>
+            </span>
+        );
+
     useEffect(() => {
         const detailName = { name: match.params.recDetail };
         fetchContentDetails(detailName);
@@ -145,31 +158,53 @@ const Details = ({ match, fetchContentDetails, details, fetchContentDetailsHits,
                 <SplitItem>
                     <Card>
                         <CardBody>
-                            <ExpandableSection toggleText={details.name} onToggle={() => setExpanded(!expanded)} isExpanded={expanded}>
-                                <p>{`Publish Date: ${details.publish_date} | `}
-                                    {details.node_id ? <a href={detailHref}>{detailHref}</a> :
-                                        <Label variant='outline' color='gray'>No node_id present</Label>}</p>
-                                {details.reboot_required && <Label variant='outline' color='gray'>Reboot required</Label>}
-                                <Label variant='outline' color='gray'>{details.category}</Label>
-                                {details.severity && <Label variant='outline' color={severityLabelColor(details.severity)}>{details.severity}</Label>}
-                                <Form>
-                                    <FormGroup
-                                        label='Free Style JSON input:'
-                                        type='string'
-                                        helperText={helperText}
-                                        helperTextInvalid='Not valid JSON'
-                                        fieldId='selection'
-                                        validated={freeStyleValidated}
-                                    >
-                                        <TextArea
-                                            value={freeStyle}
-                                            onChange={freeStyleChange}
-                                            isRequired
-                                            validated={freeStyleValidated}
-                                            aria-label='free style JSON input'
-                                        />
-                                    </FormGroup>
-                                </Form>
+                            <ExpandableSection toggleText={details.description} onToggle={() => setExpanded(!expanded)} isExpanded={expanded}>
+                                <Stack hasGutter>
+                                    <StackItem>
+                                        <p>{`Publish Date: ${details.publish_date} | `}
+                                            {details.node_id ? <a href={detailHref}>{detailHref}</a> :
+                                                <Label variant='outline' color='gray'>No node_id present</Label>}</p>
+                                        {details.reboot_required && <Label variant='outline' color='gray'>Reboot required</Label>}
+                                        <Label variant='outline' color='gray'>{details.category}</Label>
+                                        {details.severity && <Label variant='outline' color={severityLabelColor(details.severity)}>{details.severity}</Label>}
+                                    </StackItem>
+                                    <StackItem>
+                                        <Stack hasGutter>
+                                            <StackItem>
+                                                <strong>Name:</strong>
+                                                { ruleDescription(details.name) }
+                                            </StackItem>
+                                            <StackItem>
+                                                <strong>Summary:</strong>
+                                                { ruleDescription(details.summary) }
+                                            </StackItem>
+                                            <StackItem>
+                                                <strong>Generic:</strong>
+                                                { ruleDescription(details.generic, true) }
+                                            </StackItem>
+                                        </Stack>
+                                    </StackItem>
+                                    <StackItem>
+                                        <Form>
+                                            <FormGroup
+                                                label='Free Style JSON input:'
+                                                type='string'
+                                                helperText={helperText}
+                                                helperTextInvalid='Not valid JSON'
+                                                fieldId='selection'
+                                                validated={freeStyleValidated}
+                                            >
+                                                <TextArea
+                                                    value={freeStyle}
+                                                    onChange={freeStyleChange}
+                                                    isRequired
+                                                    validated={freeStyleValidated}
+                                                    aria-label='free style JSON input'
+                                                />
+                                            </FormGroup>
+                                        </Form>
+                                    </StackItem>
+                                </Stack>
                             </ExpandableSection>
                         </CardBody>
                     </Card>
