@@ -5,6 +5,10 @@
 .pf-l-split {
     width: 100%;
 }
+.pf-l-split-left-side {
+    width: 50%;
+    max-width: 1000px;
+}
 .overFlow {
     overflow: scroll;
 }

@@ -155,7 +155,7 @@ const Details = ({ match, fetchContentDetails, details, fetchContentDetailsHits,
         </PageHeader>
         <div className='pf-l-page__main-section pf-c-page__main-section'>
             <Split hasGutter>
-                <SplitItem>
+                <SplitItem className='pf-l-split-left-side'>
                     <Card>
                         <CardBody>
                             <ExpandableSection toggleText={details.description} onToggle={() => setExpanded(!expanded)} isExpanded={expanded}>
