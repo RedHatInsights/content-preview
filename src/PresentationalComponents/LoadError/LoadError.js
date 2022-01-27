@@ -16,8 +16,7 @@ const LoadDetailError = (props) => {
     if (props.bodyMessage === 'List') {
         bodyMessage = 'Try again later. Or report issue to @insights-rule-dev';
     } else if (props.bodyMessage === 'Detail') {
-        //No results match the given PluginName|ErrorKey in URL. Input right URL and try again.
-        bodyMessage = 'Make sure using the right PluginName|ErrorKey in URL and try again...';
+        bodyMessage = 'Use a right PluginName|ErrorKey in URL and try again... Or report issue to @insights-rule-dev';
     }
 
     return (
