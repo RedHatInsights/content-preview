@@ -43,7 +43,7 @@ const ContentTable = ({ data, hits }) => {
                 title: <span key={key}> {item.status === 'active' ?
                     <CheckCircleIcon color={global_palette_green_500.value} /> : <TimesCircleIcon color={global_palette_red_100.value} />}</span>
             }, {
-                title: <Link key={key} to={`${item.rule_id}`}> {item.plugin} </Link>
+                title: <Link key={key} to={`/preview/${item.rule_id}`}> {item.plugin} </Link>
             }, `${item.error_key}`, `${item.product_code}`, `${item.role}`, `${item.category}`, hits[item.rule_id] || 0]
         }] : [];
     });

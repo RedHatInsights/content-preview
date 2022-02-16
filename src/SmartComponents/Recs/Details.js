@@ -146,7 +146,7 @@ const Details = ({ match, fetchContentDetails, details, fetchContentDetailsHits,
     return <div>
         <PageHeader>
             <Breadcrumb>
-                <BreadcrumbItem><Link to='./'>Content Preview</Link></BreadcrumbItem>
+                <BreadcrumbItem><Link to='/preview'>Content Preview</Link></BreadcrumbItem>
                 <BreadcrumbHeading to='#'>{`${match.params.recDetail}`}</BreadcrumbHeading>
             </Breadcrumb>
             <PageHeaderTitle title={`${details.rule_id || 'loading...'}`} />
