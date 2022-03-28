@@ -20,9 +20,9 @@ export const Routes = () => <Switch>
     />
     <Route exact path={paths.details}
         component={() => (
-            <ErrorBoundary fallback={<LoadError bodyMessage='Detail' />}>
+            //<ErrorBoundary fallback={<LoadError bodyMessage='Detail' />}>
                 <Suspense fallback={<Loading />}> <Details /> </Suspense>
-            </ErrorBoundary>
+            //</ErrorBoundary>
         )}
     />
     <Redirect path='*' to={paths.list} push>
