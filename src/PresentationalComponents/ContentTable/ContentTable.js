@@ -56,7 +56,7 @@ const ContentTable = ({ data, hits }) => {
     };
 
     useEffect(() => {
-        sort.index ? onSort(null, sort.index, sort.direction) : setRows(buildRows(data));
+        onSort(null, sort.index, sort.direction);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, debouncedSearchText]);
 
