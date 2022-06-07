@@ -18,6 +18,7 @@ import {
     Grid,
     GridItem,
     Label,
+    LabelGroup,
     Page,
     PageSection,
     Split,
@@ -164,9 +165,7 @@ const Details = ({
                             <>
                                 {details.rule_id || 'loading...'}{' '}
                                 {details.status !== undefined && (
-                                    <Label
-                                        color={details.status === 'active' ? 'green' : 'red'}
-                                    >
+                                    <Label color={details.status === 'active' ? 'green' : 'red'}>
                                         {capitalize(details.status)}
                                     </Label>
                                 )}{' '}
@@ -197,25 +196,33 @@ const Details = ({
                                                         <a href={detailHref}>{detailHref}</a>
                                                     ) : (
                                                         <Label variant="outline" color="gray">
-                                                        No node_id present
+                                                            No node_id present
                                                         </Label>
                                                     )}
                                                 </p>
-                                                {details.reboot_required && (
-                                                    <Label variant="outline" color="gray">
-                                                    Reboot required
-                                                    </Label>
-                                                )}
-                                                <Label variant="outline" color="gray">
-                                                    {details.category}
-                                                </Label>
-                                                {details.severity && (
-                                                    <Label
-                                                        variant="outline"
-                                                        color={severityLabelColor(details.severity)}
-                                                    >
-                                                        {details.severity}
-                                                    </Label>
+                                                {(details.reboot_required ||
+                                                    details.category ||
+                                                    details.severity) && (
+                                                    <LabelGroup>
+                                                        {details.reboot_required && (
+                                                            <Label variant="outline" color="gray">
+                                                                Reboot required
+                                                            </Label>
+                                                        )}
+                                                        {details.category && (
+                                                            <Label variant="outline" color="gray">
+                                                                {details.category}
+                                                            </Label>
+                                                        )}
+                                                        {details.severity && (
+                                                            <Label
+                                                                variant="outline"
+                                                                color={severityLabelColor(details.severity)}
+                                                            >
+                                                                {details.severity}
+                                                            </Label>
+                                                        )}
+                                                    </LabelGroup>
                                                 )}
                                             </StackItem>
                                             <StackItem>
