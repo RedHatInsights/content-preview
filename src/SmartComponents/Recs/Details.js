@@ -19,7 +19,6 @@ import {
     GridItem,
     Label,
     Page,
-    PageHeaderTools,
     PageSection,
     Split,
     SplitItem,
@@ -180,121 +179,123 @@ const Details = ({
                 </Flex>
             </PageHeader>
             <PageSection>
-                <Grid>
+                <Grid hasGutter>
                     <GridItem span={6}>
-                        <Card>
-                            <CardBody>
-                                <ExpandableSection
-                                    toggleText={details.description}
-                                    onToggle={() => setExpanded(!expanded)}
-                                    isExpanded={expanded}
-                                >
-                                    <Stack hasGutter>
-                                        <StackItem>
-                                            <p>
-                                                {`Publish Date: ${details.publish_date} | `}
-                                                {details.node_id ? (
-                                                    <a href={detailHref}>{detailHref}</a>
-                                                ) : (
-                                                    <Label variant="outline" color="gray">
+                        <Stack hasGutter>
+                            <Card>
+                                <CardBody>
+                                    <ExpandableSection
+                                        toggleText={details.description}
+                                        onToggle={() => setExpanded(!expanded)}
+                                        isExpanded={expanded}
+                                    >
+                                        <Stack hasGutter>
+                                            <StackItem>
+                                                <p>
+                                                    {`Publish Date: ${details.publish_date} | `}
+                                                    {details.node_id ? (
+                                                        <a href={detailHref}>{detailHref}</a>
+                                                    ) : (
+                                                        <Label variant="outline" color="gray">
                                                         No node_id present
+                                                        </Label>
+                                                    )}
+                                                </p>
+                                                {details.reboot_required && (
+                                                    <Label variant="outline" color="gray">
+                                                    Reboot required
                                                     </Label>
                                                 )}
-                                            </p>
-                                            {details.reboot_required && (
                                                 <Label variant="outline" color="gray">
-                                                    Reboot required
+                                                    {details.category}
                                                 </Label>
-                                            )}
-                                            <Label variant="outline" color="gray">
-                                                {details.category}
-                                            </Label>
-                                            {details.severity && (
-                                                <Label
-                                                    variant="outline"
-                                                    color={severityLabelColor(details.severity)}
-                                                >
-                                                    {details.severity}
-                                                </Label>
-                                            )}
-                                        </StackItem>
-                                        <StackItem>
-                                            <Stack hasGutter>
-                                                <StackItem>
-                                                    <strong>Name:</strong>
-                                                    {ruleDescription(details.name)}
-                                                </StackItem>
-                                                <StackItem>
-                                                    <strong>Summary:</strong>
-                                                    {ruleDescription(details.summary)}
-                                                </StackItem>
-                                                <StackItem>
-                                                    <strong>Generic:</strong>
-                                                    {ruleDescription(details.generic, true)}
-                                                </StackItem>
-                                            </Stack>
-                                        </StackItem>
-                                        <StackItem>
-                                            <Form>
-                                                <FormGroup
-                                                    label="Free Style JSON input:"
-                                                    type="string"
-                                                    helperText={helperText}
-                                                    helperTextInvalid="Not valid JSON"
-                                                    fieldId="selection"
-                                                    validated={freeStyleValidated}
-                                                >
-                                                    <TextArea
-                                                        value={freeStyle}
-                                                        onChange={freeStyleChange}
-                                                        isRequired
+                                                {details.severity && (
+                                                    <Label
+                                                        variant="outline"
+                                                        color={severityLabelColor(details.severity)}
+                                                    >
+                                                        {details.severity}
+                                                    </Label>
+                                                )}
+                                            </StackItem>
+                                            <StackItem>
+                                                <Stack hasGutter>
+                                                    <StackItem>
+                                                        <strong>Name:</strong>
+                                                        {ruleDescription(details.name)}
+                                                    </StackItem>
+                                                    <StackItem>
+                                                        <strong>Summary:</strong>
+                                                        {ruleDescription(details.summary)}
+                                                    </StackItem>
+                                                    <StackItem>
+                                                        <strong>Generic:</strong>
+                                                        {ruleDescription(details.generic, true)}
+                                                    </StackItem>
+                                                </Stack>
+                                            </StackItem>
+                                            <StackItem>
+                                                <Form>
+                                                    <FormGroup
+                                                        label="Free Style JSON input:"
+                                                        type="string"
+                                                        helperText={helperText}
+                                                        helperTextInvalid="Not valid JSON"
+                                                        fieldId="selection"
                                                         validated={freeStyleValidated}
-                                                        aria-label="free style JSON input"
-                                                    />
-                                                </FormGroup>
-                                            </Form>
-                                        </StackItem>
-                                    </Stack>
-                                </ExpandableSection>
-                            </CardBody>
-                        </Card>
-                        <DataList
-                            className="pyDataList"
-                            aria-label="selectable data list example"
-                            selectedDataListItemId={selectedListItem}
-                            onSelectDataListItem={(id) =>
-                                id !== selectedListItem
-                                    ? setSelectedListItem(id)
-                                    : setSelectedListItem(0)
-                            }
-                        >
-                            {contentDetailsHits.map((item, key) => (
-                                <DataListItem
-                                    aria-labelledby="selectable-action-item1"
-                                    key={key + 1}
-                                    id={key + 1}
-                                >
-                                    <DataListItemRow className="overFlow">
-                                        <DataListItemCells
-                                            dataListCells={[
-                                                <DataListCell key="primary content">
-                                                    <Split hasGutter>
-                                                        <SplitItem>
-                                                            <b>{item.__name}</b>
-                                                        </SplitItem>
-                                                        <SplitItem>
-                                                            <Label color="blue">{item.__source}</Label>
-                                                        </SplitItem>
-                                                    </Split>
-                                                    <h5>{item.__date}</h5>
-                                                    <pre>{JSON.stringify(pyFilter(item), null, 2)}</pre>
-                                                </DataListCell>
-                                            ]}
-                                        />
-                                    </DataListItemRow>
-                                </DataListItem>
-                            ))}
-                        </DataList>
+                                                    >
+                                                        <TextArea
+                                                            value={freeStyle}
+                                                            onChange={freeStyleChange}
+                                                            isRequired
+                                                            validated={freeStyleValidated}
+                                                            aria-label="free style JSON input"
+                                                        />
+                                                    </FormGroup>
+                                                </Form>
+                                            </StackItem>
+                                        </Stack>
+                                    </ExpandableSection>
+                                </CardBody>
+                            </Card>
+                            <DataList
+                                className="pyDataList"
+                                aria-label="selectable data list example"
+                                selectedDataListItemId={selectedListItem}
+                                onSelectDataListItem={(id) =>
+                                    id !== selectedListItem
+                                        ? setSelectedListItem(id)
+                                        : setSelectedListItem(0)
+                                }
+                            >
+                                {contentDetailsHits.map((item, key) => (
+                                    <DataListItem
+                                        aria-labelledby="selectable-action-item1"
+                                        key={key + 1}
+                                        id={key + 1}
+                                    >
+                                        <DataListItemRow className="overFlow">
+                                            <DataListItemCells
+                                                dataListCells={[
+                                                    <DataListCell key="primary content">
+                                                        <Split hasGutter>
+                                                            <SplitItem>
+                                                                <b>{item.__name}</b>
+                                                            </SplitItem>
+                                                            <SplitItem>
+                                                                <Label color="blue">{item.__source}</Label>
+                                                            </SplitItem>
+                                                        </Split>
+                                                        <h5>{item.__date}</h5>
+                                                        <pre>{JSON.stringify(pyFilter(item), null, 2)}</pre>
+                                                    </DataListCell>
+                                                ]}
+                                            />
+                                        </DataListItemRow>
+                                    </DataListItem>
+                                ))}
+                            </DataList>
+                        </Stack>
                     </GridItem>
                     <GridItem span={6}>
                         <ReportDetails
