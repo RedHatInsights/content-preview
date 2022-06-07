@@ -22,9 +22,9 @@ import {
     TextArea
 } from '@patternfly/react-core';
 import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components';
+import { ReportDetails } from '@redhat-cloud-services/frontend-components-advisor-components/ReportDetails';
 import React, { useEffect, useState } from 'react';
 import { fetchContentDetails, fetchContentDetailsHits } from '../../store/Actions';
-import { loadComponent, useDynamicScript } from '../../Utilities/Helpers';
 
 import API from '../../Utilities/Api';
 import HostSelector from '../../PresentationalComponents/HostSelector/HostSelector';
@@ -102,30 +102,6 @@ const Details = ({ match, fetchContentDetails, details, fetchContentDetailsHits,
         } catch (error) {
             console.error(error, 'KBA fetch failed.');
         }
-    };
-
-    const url = '/apps/advisor/fed-mods.json';
-
-    // eslint-disable-next-line react/prop-types
-    const AsyncComponent = ({ report, kbaDetail, kbaLoading }) => {
-        const { ready, failed } = useDynamicScript({
-            url
-        });
-        if (!ready) {
-            return <h2>Loading dynamic script: {url}</h2>;
-        }
-
-        if (failed) {
-            return <h2>Failed to load dynamic script: {url}</h2>;
-        }
-
-        const Component = React.lazy(loadComponent('advisor', './AdvisorReportDetails'));
-
-        return (
-            <React.Suspense fallback="Loading">
-                <Component report={report} kbaDetail={kbaDetail} kbaLoading={kbaLoading}/>
-            </React.Suspense>
-        );
     };
 
     const ruleDescription = (data, isGeneric) =>
@@ -233,11 +209,12 @@ const Details = ({ match, fetchContentDetails, details, fetchContentDetailsHits,
                     </DataList>
                 </SplitItem>
                 <SplitItem className='advisor overFlow'>
-                    <AsyncComponent report={{
+                    <ReportDetails report={{
                         ...details,
+                        rule: details,
                         ...(selectedPyData && { details: selectedPyData }),
                         ...(validFreeStyle && { details: validFreeStyle }),
-                        resolution: { resolution: details.resolution }
+                        resolution: details.resolution
                     }}
                     kbaDetail={kbaDetailsData}
                     kbaLoading={kbaLoading} />
