@@ -6,9 +6,10 @@ export const CONTENT_DETAILS_HITS_FETCH = 'CONTENT_DETAILS_HITS_FETCH';
 export const PY_DATA_FETCH = 'PY_DATA_FETCH';
 export const URL_SET = 'URL_SET';
 
-const baseParams = (base) => `:8090/${base}/`;
-export const PRODUCTION_URL = 'https://10.72.32.104';
-export const LOCALHOST = 'localhost:8080';
+const baseParams = (base) => `/${base}/`;
+export const PRODUCTION_URL = 'https://rehearse.usersys.redhat.com:8090';
+export const LOCALHOST = 'http://localhost:8080';
+export const CUSTOM_SERVER = 'https://custom.server.org:8090';
 export let BASE_URL = PRODUCTION_URL;
 
 export let CONTENT_FETCH_URL = `${BASE_URL}${baseParams('content')}?metadata_only=True`;
