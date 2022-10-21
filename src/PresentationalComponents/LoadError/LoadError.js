@@ -1,15 +1,15 @@
 import React from 'react';
 import {
     Title,
-    Button,
     EmptyState,
     EmptyStateBody,
     EmptyStateIcon,
-    EmptyStatePrimary,
+    EmptyStatePrimary
 } from '@patternfly/react-core';
 import BanIcon from '@patternfly/react-icons/dist/esm/icons/ban-icon';
 
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const LoadDetailError = (props) => {
     let bodyMessage;
@@ -33,6 +33,10 @@ const LoadDetailError = (props) => {
             </EmptyStatePrimary>
         </EmptyState>
     );
-}
+};
+
+LoadDetailError.propTypes = {
+    bodyMessage: PropTypes.string
+};
 
 export default LoadDetailError;

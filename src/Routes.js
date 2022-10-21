@@ -9,7 +9,6 @@ const List = lazy(() => import(/* webpackChunkName: "List" */ './SmartComponents
 const Details = lazy(() => import(/* webpackChunkName: "Details" */ './SmartComponents/Recs/Details'));
 const paths = { list: '/preview', details: '/preview/:recDetail' };
 
-
 export const Routes = () => <Switch>
     <Route exact path={paths.list}
         component={() => (
@@ -21,7 +20,7 @@ export const Routes = () => <Switch>
     <Route exact path={paths.details}
         component={() => (
             //<ErrorBoundary fallback={<LoadError bodyMessage='Detail' />}>
-                <Suspense fallback={<Loading />}> <Details /> </Suspense>
+            <Suspense fallback={<Loading />}> <Details /> </Suspense>
             //</ErrorBoundary>
         )}
     />

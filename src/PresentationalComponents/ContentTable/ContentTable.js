@@ -1,7 +1,9 @@
 /* eslint-disable camelcase */
 import './_ContentTable.scss';
 
-import { Link, withRouter } from 'react-router-dom';
+import {
+
+    Link, withRouter } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { SortByDirection, Table, TableBody, TableHeader, TableVariant, sortable } from '@patternfly/react-table';
 

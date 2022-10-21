@@ -5,9 +5,9 @@ export default {
         return axios.get(url, {
             headers,
             params
-        }).catch(function(error){
-          return [];
-       });
+        }).catch(function() {
+            return [];
+        });
     },
     put(url, data = {}, headers = {}) {
         return axios.put(url, data, {
