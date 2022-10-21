@@ -58,7 +58,7 @@
     "prop-types": "15.7.2",
     "rehype-raw": "^6.1.0",
     "rehype-sanitize": "^5.0.0",
-    "sass-loader": "12.1.0",
+    "sass-loader": "^13.1.0",
     "style-loader": "3.2.1",
     "stylelint": "13.13.1",
     "stylelint-config-recommended-scss": "4.3.0",
