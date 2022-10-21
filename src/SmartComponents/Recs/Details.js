@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import './_Details.scss';
 
 import {
