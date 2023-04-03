@@ -232,10 +232,10 @@ const Details = ({
                                                         <strong>Name:</strong>
                                                         {ruleDescription(details.name)}
                                                     </StackItem>
-                                                    <StackItem>
+                                                    {/* <StackItem>
                                                         <strong>Summary:</strong>
                                                         {ruleDescription(details.summary)}
-                                                    </StackItem>
+                                                    </StackItem> */}
                                                     <StackItem>
                                                         <strong>Generic:</strong>
                                                         {ruleDescription(details.generic, true)}
