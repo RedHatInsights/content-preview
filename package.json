@@ -13,7 +13,7 @@
     "@babel/runtime": "7.15.4",
     "@patternfly/patternfly": "^4.224.2",
     "@patternfly/react-core": "^4.224.1",
-    "@patternfly/react-icons": "^4.93.6",
+    "@patternfly/react-icons": "^4.93.7",
     "@patternfly/react-table": "^4.112.6",
     "@redhat-cloud-services/frontend-components": "^3.9.28",
     "@redhat-cloud-services/frontend-components-advisor-components": "^1.0.6",
