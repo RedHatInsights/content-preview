@@ -7,7 +7,7 @@
     "lint:js": "eslint src",
     "lint:js:fix": "eslint src --fix",
     "lint:sass": "stylelint 'src/**/*.scss' --config .stylelintrc.json",
-    "start": "webpack serve --open /preview --config webpack.dev.js",
+    "start": "webpack serve --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js"
   },
   "dependencies": {

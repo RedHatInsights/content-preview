@@ -6,7 +6,7 @@ module.exports = {
     entry: './src/index.js',
     devServer: {
         hot: true,
-        open: ['/preview']
+        open: ['/']
     },
     module: {
         rules: [

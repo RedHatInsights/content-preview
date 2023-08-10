@@ -9,7 +9,7 @@ Before following the instruction, you have to be connected Red Hat internal VPN.
 
 1. Run ```npm install``` to install npm dependencies required to deploy this application locally,
 2. Run ```npm run start```; the script starts webpack bundler and serves the files with webpack dev server,
-3. The development server should automatically open `http://localhost:8080/preview` in your browser — this is the page where you will find the app.
+3. The development server should automatically open `http://localhost:8080` in your browser — this is the page where you will find the app.
 
 ## Building production assets
 
