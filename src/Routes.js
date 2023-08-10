@@ -13,15 +13,13 @@ export const Routes = () => <Switch>
     <Route exact path={paths.list}
         component={() => (
             <ErrorBoundary fallback={<LoadError bodyMessage='List' />}>
-                <Suspense fallback={<Loading />}> <List /> </Suspense>
+                <Suspense fallback={<Loading />}><List /></Suspense>
             </ErrorBoundary>
         )}
     />
     <Route exact path={paths.details}
         component={() => (
-            //<ErrorBoundary fallback={<LoadError bodyMessage='Detail' />}>
-            <Suspense fallback={<Loading />}> <Details /> </Suspense>
-            //</ErrorBoundary>
+            <Suspense fallback={<Loading />}><Details /></Suspense>
         )}
     />
     <Redirect path='*' to={paths.list} push>

@@ -5,7 +5,7 @@ import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-com
 import React, { Suspense, lazy, useEffect } from 'react';
 import { fetchContent, fetchContentHits } from '../../store/Actions';
 
-import { Alert } from '@patternfly/react-core/dist/esm/components/Alert/Alert';
+import { Alert } from '@patternfly/react-core';
 import HostSelector from '../../PresentationalComponents/HostSelector/HostSelector';
 import Loading from '../../PresentationalComponents/Loading/Loading';
 import PropTypes from 'prop-types';
