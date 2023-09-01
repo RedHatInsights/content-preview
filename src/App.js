@@ -1,5 +1,5 @@
 import './App.scss';
-import '@patternfly/react-core/dist/styles/base.css';
+import '@patternfly/patternfly/patternfly.scss';
 
 import PropTypes from 'prop-types';
 import React from 'react';
