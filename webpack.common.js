@@ -6,7 +6,8 @@ module.exports = {
     entry: './src/index.js',
     devServer: {
         hot: true,
-        open: ['/']
+        open: ['/'],
+        historyApiFallback: true
     },
     module: {
         rules: [
