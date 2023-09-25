@@ -3,7 +3,7 @@ import './_ContentTable.scss';
 
 import { Link, withRouter } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { SortByDirection, Table, TableBody, TableHeader, TableVariant, sortable } from '@patternfly/react-table';
+import { SortByDirection, Table, TableBody, TableHeader, TableVariant, fitContent, sortable } from '@patternfly/react-table';
 
 import CheckCircleIcon from '@patternfly/react-icons/dist/js/icons/check-circle-icon';
 import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/PrimaryToolbar';
@@ -15,13 +15,13 @@ import global_palette_red_100 from '@patternfly/react-tokens/dist/js/global_pale
 
 const ContentTable = ({ data, hits }) => {
     const columns = [
-        { title: 'Active', transforms: [sortable] },
-        { title: 'Plugin', transforms: [sortable] },
-        { title: 'Error Key', transforms: [sortable] },
-        { title: 'Product Code', transforms: [sortable] },
-        { title: 'Role', transforms: [sortable] },
-        { title: 'Category', transforms: [sortable] },
-        { title: 'Hits' }
+        { title: 'Active', transforms: [sortable, fitContent] },
+        { title: 'Plugin', transforms: [sortable, fitContent] },
+        { title: 'Error Key', transforms: [sortable, fitContent] },
+        { title: 'Product Code', transforms: [sortable, fitContent] },
+        { title: 'Role', transforms: [sortable, fitContent] },
+        { title: 'Category', transforms: [sortable, fitContent] },
+        { title: 'Hits', transforms: [fitContent] }
     ];
     const [sort, setSort] = useState({ index: 1, direction: 'asc' });
     const [rows, setRows] = useState([]);

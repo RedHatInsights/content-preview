@@ -1,4 +1,11 @@
-.pf-c-input-group {
-    width: 700px !important;
+#host-selector-group {
+    display: flex;
+    max-width: 900px !important;
     float: right;
+
+    .pf-c-button  {
+        &.pf-m-primary, &.pf-m-secondary {
+            margin-left: 10px
+        }
+    }
 }
