@@ -15,7 +15,7 @@
     "@patternfly/patternfly": "^5.1.0",
     "@patternfly/react-core": "^4.276.12",
     "@patternfly/react-icons": "^4.93.7",
-    "@patternfly/react-table": "^4.113.4",
+    "@patternfly/react-table": "^4.113.6",
     "@redhat-cloud-services/frontend-components": "^3.9.28",
     "@redhat-cloud-services/frontend-components-advisor-components": "^1.0.16",
     "@redhat-cloud-services/frontend-components-utilities": "^3.7.6",
