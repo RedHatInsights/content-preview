@@ -34,7 +34,7 @@ const ContentTable = ({ data, hits }) => {
 
     const buildRows = (data) => data.flatMap((item, key) => {
         const isValidSearchText = debouncedSearchText.length === 0
-            || item.name.toLowerCase().includes(debouncedSearchText.toLowerCase())
+            // || item.name.toLowerCase().includes(debouncedSearchText.toLowerCase())
             || item.plugin.toLowerCase().includes(debouncedSearchText.toLowerCase())
             || item.error_key.toLowerCase().includes(debouncedSearchText.toLowerCase());
 
