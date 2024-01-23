@@ -17,5 +17,8 @@ updates:
     allow:
       - dependency-name: "@redhat-cloud-services/frontend*"
       - dependency-name: "@patternfly/*"
+    ignore:
+      - dependency-name: "@patternfly/*"
+        versions: ["5.x"]
     assignees:
       - "gkarat"
