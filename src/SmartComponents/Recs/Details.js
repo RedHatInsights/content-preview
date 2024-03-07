@@ -60,7 +60,6 @@ const Details = ({
 }) => {
     const [selectedListItem, setSelectedListItem] = useState(0);
     const capitalize = (string) => string[0].toUpperCase() + string.substring(1);
-    const [expanded, setExpanded] = useState(true);
     const pyFilter = (data) => {
         const keysToInclude = Object.keys(data).filter(
             (key) => !key.includes('__')
@@ -70,11 +69,10 @@ const Details = ({
         return Object.assign({}, ...arrayObj);
     };
 
-    const selectedPyData = selectedListItem >= 1 && pyFilter(contentDetailsHits[selectedListItem - 1]);
+    const selectedPyData = 
+    selectedListItem >= 1 && pyFilter(contentDetailsHits[selectedListItem - 1]);
     const detailHref = `https://access.redhat.com/node/${details.node_id}`;
     const [freeStyle, setFreeStyle] = useState('');
-    const [description, setDescription] = useState('');
-
     const [freeStyleValidated, setFreeStyleValidated] = useState('default');
     const [validFreeStyle, setValidFreeStyle] = useState('');
     const [helperText, setHelperText] = useState('Please enter valid JSON');
@@ -160,7 +158,6 @@ const Details = ({
     const processedTitle = nunjucks.renderString(`${details?.title}`, validFreeStyle);
     const comment_private = nunjucks.renderString(`${details?.comment_private}`, validFreeStyle)
     const comment_public = nunjucks.renderString(`${details?.comment_public}`, validFreeStyle);
-
 
     const comments = { private: comment_private, public: comment_public };
     
