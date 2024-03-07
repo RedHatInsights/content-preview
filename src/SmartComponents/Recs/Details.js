@@ -27,10 +27,16 @@ import {
     Stack,
     StackItem,
     TextArea,
-    Toolbar
+    Toolbar,
+    CardTitle,
+    Alert,
+    AlertActionLink
 } from '@patternfly/react-core';
+import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
 import { PageHeader, PageHeaderTitle } from '@redhat-cloud-services/frontend-components';
 import { ReportDetails } from '@redhat-cloud-services/frontend-components-advisor-components/ReportDetails';
+import { TemplateProcessor } from '@redhat-cloud-services/frontend-components-advisor-components/TemplateProcessor';
 import React, { useEffect, useState } from 'react';
 import { fetchContentDetails, fetchContentDetailsHits } from '../../store/Actions';
 
@@ -43,6 +49,7 @@ import { withRouter } from 'react-router-dom';
 import Markdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import rehypeSanitize from 'rehype-sanitize';
+import nunjucks from 'nunjucks';
 
 const Details = ({
     match,
@@ -63,10 +70,11 @@ const Details = ({
         return Object.assign({}, ...arrayObj);
     };
 
-    const selectedPyData =
-    selectedListItem >= 1 && pyFilter(contentDetailsHits[selectedListItem - 1]);
+    const selectedPyData = selectedListItem >= 1 && pyFilter(contentDetailsHits[selectedListItem - 1]);
     const detailHref = `https://access.redhat.com/node/${details.node_id}`;
     const [freeStyle, setFreeStyle] = useState('');
+    const [description, setDescription] = useState('');
+
     const [freeStyleValidated, setFreeStyleValidated] = useState('default');
     const [validFreeStyle, setValidFreeStyle] = useState('');
     const [helperText, setHelperText] = useState('Please enter valid JSON');
@@ -130,7 +138,7 @@ const Details = ({
 
     const ruleDescription = (data, isGeneric) =>
         typeof data === 'string' &&
-    Boolean(data) && (
+        Boolean(data) && (
             <span className={isGeneric && 'genericOverride'}>
                 <Markdown rehypePlugins={[rehypeRaw, rehypeSanitize]}>{data}</Markdown>
             </span>
@@ -148,6 +156,14 @@ const Details = ({
         details.node_id
     ]);
 
+    const processedDescription = nunjucks.renderString(`${details?.description}`, validFreeStyle);
+    const processedTitle = nunjucks.renderString(`${details?.title}`, validFreeStyle);
+    const comment_private = nunjucks.renderString(`${details?.comment_private}`, validFreeStyle)
+    const comment_public = nunjucks.renderString(`${details?.comment_public}`, validFreeStyle);
+
+
+    const comments = { private: comment_private, public: comment_public };
+    
     return (
         <Page
             breadcrumb={
@@ -184,26 +200,21 @@ const Details = ({
                         <Stack hasGutter>
                             <Card>
                                 <CardBody>
-                                    <ExpandableSection
-                                        toggleText={details.description}
-                                        onToggle={() => setExpanded(!expanded)}
-                                        isExpanded={expanded}
-                                    >
-                                        <Stack hasGutter>
-                                            <StackItem>
-                                                <p>
-                                                    {`Publish Date: ${details.publish_date} | `}
-                                                    {details.node_id ? (
-                                                        <a href={detailHref}>{detailHref}</a>
-                                                    ) : (
-                                                        <Label variant="outline" color="gray">
-                                                            No node_id present
-                                                        </Label>
-                                                    )}
-                                                </p>
-                                                {(details.reboot_required ||
-                                                    details.category ||
-                                                    details.severity) && (
+                                    <Stack hasGutter>
+                                        <StackItem>
+                                            <p>
+                                                {`Publish Date: ${details.publish_date} | `}
+                                                {details.node_id ? (
+                                                    <a href={detailHref}>{detailHref}</a>
+                                                ) : (
+                                                    <Label variant="outline" color="gray">
+                                                        No node_id present
+                                                    </Label>
+                                                )}
+                                            </p>
+                                            {(details.reboot_required ||
+                                                details.category ||
+                                                details.severity) && (
                                                     <LabelGroup>
                                                         {details.reboot_required && (
                                                             <Label variant="outline" color="gray">
@@ -225,45 +236,44 @@ const Details = ({
                                                         )}
                                                     </LabelGroup>
                                                 )}
-                                            </StackItem>
-                                            <StackItem>
-                                                <Stack hasGutter>
-                                                    <StackItem>
-                                                        <strong>Name:</strong>
-                                                        {ruleDescription(details.name)}
-                                                    </StackItem>
-                                                    {/* <StackItem>
+                                        </StackItem>
+                                        <StackItem>
+                                            <Stack hasGutter>
+                                                <StackItem>
+                                                    <strong>Name:</strong>
+                                                    {ruleDescription(details.name)}
+                                                </StackItem>
+                                                {/* <StackItem>
                                                         <strong>Summary:</strong>
                                                         {ruleDescription(details.summary)}
                                                     </StackItem> */}
-                                                    <StackItem>
-                                                        <strong>Generic:</strong>
-                                                        {ruleDescription(details.generic, true)}
-                                                    </StackItem>
-                                                </Stack>
-                                            </StackItem>
-                                            <StackItem>
-                                                <Form>
-                                                    <FormGroup
-                                                        label="Free Style JSON input:"
-                                                        type="string"
-                                                        helperText={helperText}
-                                                        helperTextInvalid="Not valid JSON"
-                                                        fieldId="selection"
+                                                <StackItem>
+                                                    <strong>Generic:</strong>
+                                                    {ruleDescription(details.generic, true)}
+                                                </StackItem>
+                                            </Stack>
+                                        </StackItem>
+                                        <StackItem>
+                                            <Form>
+                                                <FormGroup
+                                                    label="Free Style JSON input:"
+                                                    type="string"
+                                                    helperText={helperText}
+                                                    helperTextInvalid="Not valid JSON"
+                                                    fieldId="selection"
+                                                    validated={freeStyleValidated}
+                                                >
+                                                    <TextArea
+                                                        value={freeStyle}
+                                                        onChange={freeStyleChange}
+                                                        isRequired
                                                         validated={freeStyleValidated}
-                                                    >
-                                                        <TextArea
-                                                            value={freeStyle}
-                                                            onChange={freeStyleChange}
-                                                            isRequired
-                                                            validated={freeStyleValidated}
-                                                            aria-label="free style JSON input"
-                                                        />
-                                                    </FormGroup>
-                                                </Form>
-                                            </StackItem>
-                                        </Stack>
-                                    </ExpandableSection>
+                                                        aria-label="free style JSON input"
+                                                    />
+                                                </FormGroup>
+                                            </Form>
+                                        </StackItem>
+                                    </Stack>
                                 </CardBody>
                             </Card>
                             <DataList
@@ -306,17 +316,80 @@ const Details = ({
                         </Stack>
                     </GridItem>
                     <GridItem span={6}>
-                        <ReportDetails
-                            report={{
-                                ...details,
-                                rule: details,
-                                ...(selectedPyData && { details: selectedPyData }),
-                                ...(validFreeStyle && { details: validFreeStyle }),
-                                resolution: details.resolution
-                            }}
-                            kbaDetail={kbaDetailsData}
-                            kbaLoading={kbaLoading}
-                        />
+                        <Stack hasGutter>
+                            {details.cta && <Card>
+                                <CardTitle>Troubleshoot Section</CardTitle>
+                                <CardBody>
+                                    <Stack hasGutter>
+                                        <StackItem>
+                                            <Alert
+                                                variant="info"
+                                                title={details.title ? processedTitle : 'Rule Description'}
+                                                actionLinks={
+                                                    <AlertActionLink component="a" href={details.cta}>
+                                                        View details
+                                                    </AlertActionLink>
+                                                }
+                                                className='troubleshoot-alert'
+                                            >
+                                                <TemplateProcessor template={processedDescription} />
+                                            </Alert>
+                                        </StackItem>
+                                    </Stack>
+                                </CardBody>
+                            </Card>}
+                            {(details.comment_private || details.comment_public) && <Card>
+                                <CardTitle>Case Comments Section</CardTitle>
+                                <CardBody>
+                                    <Stack hasGutter>
+                                        {Object.entries(comments)?.map(([key, value]) => (
+                                            !isEmpty(value) && !isEqual(value, 'undefined') && (
+                                                <StackItem key={key}>
+                                                    <section className={`support-comment ${isEqual(key, 'private') ? 'private' : ''}`}>
+                                                        <header>
+                                                            <h4>
+                                                                <span>
+                                                                    <img
+                                                                        // eslint-disable-next-line max-len
+                                                                        src="https://static.redhat.com/libs/redhat/brand-assets/2/corp/logo--hat-only.svg"
+                                                                        height="18"
+                                                                        width="18"
+                                                                        aria-hidden="true"
+                                                                        alt="Red Hat icon"
+                                                                        title="Red Hat icon"
+                                                                        className='redhat-icon' /> Automated Support Assistant
+                                                                </span>
+                                                            </h4>
+                                                        </header>
+                                                        <div className="comment-body">
+                                                            <TemplateProcessor template={value} />
+                                                        </div>
+                                                        <footer>
+                                                            <span className="comment-note">
+                                                                {isEqual(key, 'private') ? 'Private' : ''} Automated Comment
+                                                            </span>
+                                                        </footer>
+                                                    </section>
+                                                </StackItem>
+                                            )
+                                        ))
+                                        }
+                                    </Stack>
+                                </CardBody>
+                            </Card>
+                            }
+                            <ReportDetails
+                                report={{
+                                    ...details,
+                                    rule: details,
+                                    ...(selectedPyData && { details: selectedPyData }),
+                                    ...(validFreeStyle && { details: validFreeStyle }),
+                                    resolution: details.resolution
+                                }}
+                                kbaDetail={kbaDetailsData}
+                                kbaLoading={kbaLoading}
+                            />
+                        </Stack>
                     </GridItem>
                 </Grid>
             </PageSection>

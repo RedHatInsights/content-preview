@@ -21,6 +21,8 @@
     "@redhat-cloud-services/frontend-components-utilities": "^3.7.6",
     "axios": "0.21.4",
     "classnames": "2.3.1",
+    "lodash": "4.17.21",
+    "nunjucks": "3.2.4",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-markdown": "^7.0.1",
