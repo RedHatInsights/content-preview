@@ -69,8 +69,8 @@ const Details = ({
         return Object.assign({}, ...arrayObj);
     };
 
-    const selectedPyData = 
-    selectedListItem >= 1 && pyFilter(contentDetailsHits[selectedListItem - 1]);
+    const selectedPyData =
+        selectedListItem >= 1 && pyFilter(contentDetailsHits[selectedListItem - 1]);
     const detailHref = `https://access.redhat.com/node/${details.node_id}`;
     const [freeStyle, setFreeStyle] = useState('');
     const [freeStyleValidated, setFreeStyleValidated] = useState('default');
@@ -160,7 +160,7 @@ const Details = ({
     const comment_public = nunjucks.renderString(`${details?.comment_public}`, validFreeStyle);
 
     const comments = { private: comment_private, public: comment_public };
-    
+
     return (
         <Page
             breadcrumb={
