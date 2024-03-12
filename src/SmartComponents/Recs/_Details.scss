@@ -15,12 +15,12 @@
   --pf-c-alert--BackgroundColor: var(--pf-c-alert--m-inline--BackgroundColor);
 }
 
-.support-comment .comment-body {
-  word-break: break-word;
-}
-
 .comment-body{
   font-size: 14px;
+}
+
+.support-comment .comment-body {
+  word-break: break-word;
 }
 
 .comment-note {

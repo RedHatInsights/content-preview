@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-console */
 import './_Details.scss';
 
@@ -155,7 +156,7 @@ const Details = ({
 
     const processedDescription = nunjucks.renderString(`${details?.description}`, validFreeStyle);
     const processedTitle = nunjucks.renderString(`${details?.title}`, validFreeStyle);
-    const comment_private = nunjucks.renderString(`${details?.comment_private}`, validFreeStyle)
+    const comment_private = nunjucks.renderString(`${details?.comment_private}`, validFreeStyle);
     const comment_public = nunjucks.renderString(`${details?.comment_public}`, validFreeStyle);
 
     const comments = { private: comment_private, public: comment_public };
@@ -211,27 +212,27 @@ const Details = ({
                                             {(details.reboot_required ||
                                                 details.category ||
                                                 details.severity) && (
-                                                    <LabelGroup>
-                                                        {details.reboot_required && (
-                                                            <Label variant="outline" color="gray">
+                                                <LabelGroup>
+                                                    {details.reboot_required && (
+                                                        <Label variant="outline" color="gray">
                                                                 Reboot required
-                                                            </Label>
-                                                        )}
-                                                        {details.category && (
-                                                            <Label variant="outline" color="gray">
-                                                                {details.category}
-                                                            </Label>
-                                                        )}
-                                                        {details.severity && (
-                                                            <Label
-                                                                variant="outline"
-                                                                color={severityLabelColor(details.severity)}
-                                                            >
-                                                                {details.severity}
-                                                            </Label>
-                                                        )}
-                                                    </LabelGroup>
-                                                )}
+                                                        </Label>
+                                                    )}
+                                                    {details.category && (
+                                                        <Label variant="outline" color="gray">
+                                                            {details.category}
+                                                        </Label>
+                                                    )}
+                                                    {details.severity && (
+                                                        <Label
+                                                            variant="outline"
+                                                            color={severityLabelColor(details.severity)}
+                                                        >
+                                                            {details.severity}
+                                                        </Label>
+                                                    )}
+                                                </LabelGroup>
+                                            )}
                                         </StackItem>
                                         <StackItem>
                                             <Stack hasGutter>
