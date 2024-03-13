@@ -9,3 +9,69 @@
     margin-bottom: var(--pf-global--spacer--md);
   }
 }
+
+.troubleshoot-alert{
+  --pf-c-alert--BoxShadow: var(--pf-c-alert--m-inline--BoxShadow);
+  --pf-c-alert--BackgroundColor: var(--pf-c-alert--m-inline--BackgroundColor);
+}
+
+.comment-body{
+  font-size: 14px;
+}
+
+.support-comment .comment-body {
+  word-break: break-word;
+}
+
+.comment-note {
+  color: #a30000;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.support-comment {
+  display: block;
+  margin-bottom: 1rem;
+  padding: 0.8rem 1.3rem 0.8rem 1.5rem;
+  background-color: #fff;
+  color: #252525;
+  border: 1px solid #d2d2d2;
+  border-left: 4px solid #286869;
+}
+
+.support-comment.private {
+  border-left: 4px solid #ee0000;
+  background-color: rgba(238, 0, 0, 0.05);
+}
+
+.support-comment header {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  font-size: 15px;
+  margin-bottom: 15px;
+}
+
+.support-comment header h4 {
+  font-weight: 600;
+}
+
+.support-comment footer {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.redhat-icon {
+  vertical-align: -0.125em;
+  margin-right: 6px;
+}
