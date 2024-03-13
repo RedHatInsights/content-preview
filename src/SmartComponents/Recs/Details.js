@@ -13,6 +13,7 @@ import {
     DataListItem,
     DataListItemCells,
     DataListItemRow,
+    ExpandableSection,
     Flex,
     Form,
     FormGroup,
@@ -30,7 +31,7 @@ import {
     Toolbar,
     CardTitle,
     Alert,
-    AlertActionLink
+    AlertActionLink,
 } from '@patternfly/react-core';
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
@@ -60,6 +61,7 @@ const Details = ({
 }) => {
     const [selectedListItem, setSelectedListItem] = useState(0);
     const capitalize = (string) => string[0].toUpperCase() + string.substring(1);
+    const [expanded, setExpanded] = useState(true);
     const pyFilter = (data) => {
         const keysToInclude = Object.keys(data).filter(
             (key) => !key.includes('__')
@@ -154,6 +156,83 @@ const Details = ({
         details.node_id
     ]);
 
+    const summarySection = ( 
+        <Stack hasGutter>
+            <StackItem>
+                <p>
+                    {`Publish Date: ${details.publish_date} | `}
+                    {details.node_id ? (
+                        <a href={detailHref}>{detailHref}</a>
+                    ) : (
+                        <Label variant="outline" color="gray">
+                            No node_id present
+                        </Label>
+                    )}
+                </p>
+                {(details.reboot_required ||
+                    details.category ||
+                    details.severity) && (
+                    <LabelGroup>
+                        {details.reboot_required && (
+                            <Label variant="outline" color="gray">
+                                    Reboot required
+                            </Label>
+                        )}
+                        {details.category && (
+                            <Label variant="outline" color="gray">
+                                {details.category}
+                            </Label>
+                        )}
+                        {details.severity && (
+                            <Label
+                                variant="outline"
+                                color={severityLabelColor(details.severity)}
+                            >
+                                {details.severity}
+                            </Label>
+                        )}
+                    </LabelGroup>
+                )}
+            </StackItem>
+            <StackItem>
+                <Stack hasGutter>
+                    <StackItem>
+                        <strong>Name:</strong>
+                        {ruleDescription(details.name)}
+                    </StackItem>
+                    {/* <StackItem>
+                            <strong>Summary:</strong>
+                            {ruleDescription(details.summary)}
+                        </StackItem> */}
+                    <StackItem>
+                        <strong>Generic:</strong>
+                        {ruleDescription(details.generic, true)}
+                    </StackItem>
+                </Stack>
+            </StackItem>
+            <StackItem>
+                <Form>
+                    <FormGroup
+                        label="Free Style JSON input:"
+                        type="string"
+                        helperText={helperText}
+                        helperTextInvalid="Not valid JSON"
+                        fieldId="selection"
+                        validated={freeStyleValidated}
+                    >
+                        <TextArea
+                            value={freeStyle}
+                            onChange={freeStyleChange}
+                            isRequired
+                            validated={freeStyleValidated}
+                            aria-label="free style JSON input"
+                        />
+                    </FormGroup>
+                </Form>
+            </StackItem>
+        </Stack>
+    );
+
     const processedDescription = nunjucks.renderString(`${details?.description}`, validFreeStyle);
     const processedTitle = nunjucks.renderString(`${details?.title}`, validFreeStyle);
     const comment_private = nunjucks.renderString(`${details?.comment_private}`, validFreeStyle);
@@ -197,80 +276,13 @@ const Details = ({
                         <Stack hasGutter>
                             <Card>
                                 <CardBody>
-                                    <Stack hasGutter>
-                                        <StackItem>
-                                            <p>
-                                                {`Publish Date: ${details.publish_date} | `}
-                                                {details.node_id ? (
-                                                    <a href={detailHref}>{detailHref}</a>
-                                                ) : (
-                                                    <Label variant="outline" color="gray">
-                                                        No node_id present
-                                                    </Label>
-                                                )}
-                                            </p>
-                                            {(details.reboot_required ||
-                                                details.category ||
-                                                details.severity) && (
-                                                <LabelGroup>
-                                                    {details.reboot_required && (
-                                                        <Label variant="outline" color="gray">
-                                                                Reboot required
-                                                        </Label>
-                                                    )}
-                                                    {details.category && (
-                                                        <Label variant="outline" color="gray">
-                                                            {details.category}
-                                                        </Label>
-                                                    )}
-                                                    {details.severity && (
-                                                        <Label
-                                                            variant="outline"
-                                                            color={severityLabelColor(details.severity)}
-                                                        >
-                                                            {details.severity}
-                                                        </Label>
-                                                    )}
-                                                </LabelGroup>
-                                            )}
-                                        </StackItem>
-                                        <StackItem>
-                                            <Stack hasGutter>
-                                                <StackItem>
-                                                    <strong>Name:</strong>
-                                                    {ruleDescription(details.name)}
-                                                </StackItem>
-                                                {/* <StackItem>
-                                                        <strong>Summary:</strong>
-                                                        {ruleDescription(details.summary)}
-                                                    </StackItem> */}
-                                                <StackItem>
-                                                    <strong>Generic:</strong>
-                                                    {ruleDescription(details.generic, true)}
-                                                </StackItem>
-                                            </Stack>
-                                        </StackItem>
-                                        <StackItem>
-                                            <Form>
-                                                <FormGroup
-                                                    label="Free Style JSON input:"
-                                                    type="string"
-                                                    helperText={helperText}
-                                                    helperTextInvalid="Not valid JSON"
-                                                    fieldId="selection"
-                                                    validated={freeStyleValidated}
-                                                >
-                                                    <TextArea
-                                                        value={freeStyle}
-                                                        onChange={freeStyleChange}
-                                                        isRequired
-                                                        validated={freeStyleValidated}
-                                                        aria-label="free style JSON input"
-                                                    />
-                                                </FormGroup>
-                                            </Form>
-                                        </StackItem>
-                                    </Stack>
+                                    {!details.cta ? <ExpandableSection
+                                        toggleText={details.description}
+                                        onToggle={() => setExpanded(!expanded)}
+                                        isExpanded={expanded}
+                                    >
+                                       {summarySection}
+                                    </ExpandableSection> : summarySection}
                                 </CardBody>
                             </Card>
                             <DataList
