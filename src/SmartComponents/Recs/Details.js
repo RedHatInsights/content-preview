@@ -31,7 +31,7 @@ import {
     Toolbar,
     CardTitle,
     Alert,
-    AlertActionLink,
+    AlertActionLink
 } from '@patternfly/react-core';
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
@@ -156,7 +156,7 @@ const Details = ({
         details.node_id
     ]);
 
-    const summarySection = ( 
+    const summarySection = (
         <Stack hasGutter>
             <StackItem>
                 <p>
@@ -281,7 +281,7 @@ const Details = ({
                                         onToggle={() => setExpanded(!expanded)}
                                         isExpanded={expanded}
                                     >
-                                       {summarySection}
+                                        {summarySection}
                                     </ExpandableSection> : summarySection}
                                 </CardBody>
                             </Card>
