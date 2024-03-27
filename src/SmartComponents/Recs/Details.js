@@ -79,7 +79,7 @@ const Details = ({
     const [validFreeStyle, setValidFreeStyle] = useState('');
     const [helperText, setHelperText] = useState('Please enter valid JSON');
     const [kbaDetailsData, setLbaDetailsData] = useState({});
-    const kbaLoading = useState(true);
+    const [kbaLoading, setKbaLoading] = useState(true);
 
     const freeStyleChange = (input) => {
         let isValid;
@@ -130,7 +130,7 @@ const Details = ({
                 )
             ).data.response.docs;
             setLbaDetailsData(kbaDetailsFetch[0]);
-            // setKbaLoading(false);
+            setKbaLoading(false);
         } catch (error) {
             console.error(error, 'KBA fetch failed.');
         }
