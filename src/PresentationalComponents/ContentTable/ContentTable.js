@@ -3,7 +3,17 @@ import './_ContentTable.scss';
 
 import { Link, withRouter } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { SortByDirection, Table, TableBody, TableHeader, TableVariant, fitContent, sortable } from '@patternfly/react-table';
+import {
+    SortByDirection,
+    TableVariant,
+    fitContent,
+    sortable
+} from '@patternfly/react-table';
+import {
+    Table,
+    TableBody,
+    TableHeader
+} from '@patternfly/react-table/deprecated';
 
 import CheckCircleIcon from '@patternfly/react-icons/dist/js/icons/check-circle-icon';
 import { PrimaryToolbar } from '@redhat-cloud-services/frontend-components/PrimaryToolbar';
@@ -65,6 +75,7 @@ const ContentTable = ({ data, hits }) => {
             filterConfig={{
                 items: [{
                     label: 'Recommendation',
+                    type: 'text',
                     filterValues: {
                         key: 'text-filter',
                         'aria-label': 'recommendation filter',

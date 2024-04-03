@@ -1,8 +1,7 @@
 import React from 'react';
 import {
-    Title,
     EmptyState,
-    EmptyStateIcon
+    EmptyStateIcon, EmptyStateHeader
 } from '@patternfly/react-core';
 
 const Loading = () => {
@@ -15,10 +14,7 @@ const Loading = () => {
     );
     return (
         <EmptyState>
-            <EmptyStateIcon variant="container" component={Spinner} />
-            <Title size="lg" headingLevel="h4">
-                Loading
-            </Title>
+            <EmptyStateHeader titleText="Loading" icon={<EmptyStateIcon  icon={Spinner} />} headingLevel="h4" />
         </EmptyState>
     );
 };
