@@ -1,10 +1,9 @@
 import React from 'react';
 import {
-    Title,
     EmptyState,
     EmptyStateBody,
     EmptyStateIcon,
-    EmptyStatePrimary
+    EmptyStateActions, EmptyStateHeader, EmptyStateFooter
 } from '@patternfly/react-core';
 import BanIcon from '@patternfly/react-icons/dist/esm/icons/ban-icon';
 
@@ -21,17 +20,14 @@ const LoadDetailError = (props) => {
 
     return (
         <EmptyState>
-            <EmptyStateIcon icon={BanIcon} />
-            <Title size="lg" headingLevel="h4">
-                Loading Error of {props.bodyMessage}
-            </Title>
+            <EmptyStateHeader titleText={<>Loading Error of{props.bodyMessage}</>} icon={<EmptyStateIcon icon={BanIcon} />} headingLevel="h4" />
             <EmptyStateBody>
                 {bodyMessage}
-            </EmptyStateBody>
-            <EmptyStatePrimary>
+            </EmptyStateBody><EmptyStateFooter>
+                <EmptyStateActions>
                 Back to <Link to='/preview'>Content Preview</Link>
-            </EmptyStatePrimary>
-        </EmptyState>
+                </EmptyStateActions>
+            </EmptyStateFooter></EmptyState>
     );
 };
 

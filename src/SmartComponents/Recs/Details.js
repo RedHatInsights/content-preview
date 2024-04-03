@@ -222,7 +222,7 @@ const Details = ({
                     >
                         <TextArea
                             value={freeStyle}
-                            onChange={freeStyleChange}
+                            onChange={(_event, input) => freeStyleChange(input)}
                             isRequired
                             validated={freeStyleValidated}
                             aria-label="free style JSON input"
@@ -289,7 +289,7 @@ const Details = ({
                                 className="pyDataList"
                                 aria-label="selectable data list example"
                                 selectedDataListItemId={selectedListItem}
-                                onSelectDataListItem={(id) =>
+                                onSelectDataListItem={(_event, id) =>
                                     id !== selectedListItem
                                         ? setSelectedListItem(id)
                                         : setSelectedListItem(0)
