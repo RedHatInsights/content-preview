@@ -122,14 +122,14 @@ const Details = ({
 
     const fetchKbaDetails = async (kbaId) => {
         try {
-            const kbaDetailsFetch = (
-                await API.get(
-                    `https://access.redhat.com/hydra/rest/search/kcs?q=id:(${kbaId})&fl=view_uri,id,publishedTitle&rows=1&redhat_client=$ADVISOR`,
-                    {},
-                    { credentials: 'include' }
-                )
-            ).data.response.docs;
-            setLbaDetailsData(kbaDetailsFetch[0]);
+            const kbaDetailsRequest = await API.get(
+                `https://access.redhat.com/hydra/rest/search/kcs?q=id:(${kbaId})&fl=view_uri,id,publishedTitle&rows=1&redhat_client=$ADVISOR`,
+                {},
+                { credentials: 'include' }
+            );
+            const docs = kbaDetailsRequest.data.response.docs;
+
+            setLbaDetailsData(docs[0]);
             setKbaLoading(false);
         } catch (error) {
             console.error(error, 'KBA fetch failed.');
@@ -148,7 +148,10 @@ const Details = ({
         const detailName = { name: match.params.recDetail };
         fetchContentDetails(detailName);
         fetchContentDetailsHits(detailName);
-        fetchKbaDetails(details.node_id);
+
+        if (details.node_id !== undefined) {
+            fetchKbaDetails(details.node_id);
+        }
     }, [
         fetchContentDetails,
         match.params.recDetail,
