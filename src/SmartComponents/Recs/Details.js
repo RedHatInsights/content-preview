@@ -185,7 +185,6 @@ const Details = ({
                         )}
                         {details.severity && (
                             <Label
-                                variant="outline"
                                 color={severityLabelColor(details.severity)}
                             >
                                 {details.severity}
