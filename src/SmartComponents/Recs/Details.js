@@ -149,7 +149,9 @@ const Details = ({
         fetchContentDetails(detailName);
         fetchContentDetailsHits(detailName);
 
-        if (details.node_id !== undefined) {
+        // Skip the fetchKbaDetails when node_id is not set
+        if (details.node_id !== undefined &&                                          // node_id: null
+                typeof details.node_id === 'string' && details.node_id.length > 0) {  // node_id: ''
             fetchKbaDetails(details.node_id);
         }
     }, [
@@ -399,6 +401,7 @@ const Details = ({
                                 }}
                                 kbaDetail={kbaDetailsData}
                                 kbaLoading={kbaLoading}
+                                isProd={true}
                             />
                         </Stack>
                     </GridItem>
