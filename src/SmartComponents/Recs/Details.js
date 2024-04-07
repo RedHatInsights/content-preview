@@ -80,6 +80,13 @@ const Details = ({
     const [helperText, setHelperText] = useState('Please enter valid JSON');
     const [kbaDetailsData, setLbaDetailsData] = useState({});
     const [kbaLoading, setKbaLoading] = useState(true);
+    const [isKbaDefined, setIsKbaDefined] = useState(false);
+
+    const kbaDetailDefault = {  // Copy the default value from ReportDetails.kbaDetail
+        publishedTitle: 'N/A',
+        id: '',
+        view_uri: ''
+    };
 
     const freeStyleChange = (input) => {
         let isValid;
@@ -152,6 +159,7 @@ const Details = ({
         // Skip the fetchKbaDetails when node_id is not set
         if (details.node_id !== undefined &&                                          // node_id: null
                 typeof details.node_id === 'string' && details.node_id.length > 0) {  // node_id: ''
+            setIsKbaDefined(true);
             fetchKbaDetails(details.node_id);
         }
     }, [
@@ -399,7 +407,7 @@ const Details = ({
                                     ...(validFreeStyle && { details: validFreeStyle }),
                                     resolution: details.resolution
                                 }}
-                                kbaDetail={kbaDetailsData}
+                                kbaDetail={isKbaDefined ? kbaDetailsData : kbaDetailDefault}
                                 kbaLoading={kbaLoading}
                                 isProd={true}
                             />
