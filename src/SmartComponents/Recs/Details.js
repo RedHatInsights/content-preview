@@ -399,6 +399,7 @@ const Details = ({
                                 }}
                                 kbaDetail={kbaDetailsData}
                                 kbaLoading={kbaLoading}
+                                isProd={true}
                             />
                         </Stack>
                     </GridItem>
