@@ -245,10 +245,15 @@ const Details = ({
         </Stack>
     );
 
-    const processedDescription = nunjucks.renderString(`${details?.description}`, validFreeStyle);
-    const processedTitle = nunjucks.renderString(`${details?.title}`, validFreeStyle);
-    const comment_private = nunjucks.renderString(`${details?.comment_private}`, validFreeStyle);
-    const comment_public = nunjucks.renderString(`${details?.comment_public}`, validFreeStyle);
+    const formatSpacing = (processedString) => {
+        // Replace newline characters in the API response with line break tags
+        return processedString?.replace(/\n/g, '<br>');
+    };
+
+    const processedDescription = formatSpacing(nunjucks.renderString(`${details?.description}`, validFreeStyle));
+    const processedTitle = formatSpacing(nunjucks.renderString(`${details?.title}`, validFreeStyle));
+    const comment_private = formatSpacing(nunjucks.renderString(`${details?.comment_private}`, validFreeStyle));
+    const comment_public = formatSpacing(nunjucks.renderString(`${details?.comment_public}`, validFreeStyle));
 
     const comments = { private: comment_private, public: comment_public };
 
