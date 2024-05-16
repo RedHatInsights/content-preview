@@ -12,9 +12,11 @@
 
 .troubleshoot-alert {
   --pf-v5-c-alert--BoxShadow: var(--pf-v5-c-alert--m-inline--BoxShadow);
-  --pf-v5-c-alert--BackgroundColor: var(
-    --pf-v5-c-alert--m-inline--BackgroundColor
-  );
+  --pf-v5-c-alert--BackgroundColor: var(--pf-v5-c-alert--m-inline--BackgroundColor);
+
+  .pf-v5-c-alert__action-group {
+    padding-top: 0px;
+  }
 }
 
 .comment-body {
@@ -26,12 +28,6 @@
 ul,
 pre {
   padding-bottom: 10px;
-}
-
-.troubleshoot-alert {
-  .pf-v5-c-alert__action-group {
-    padding-top: 0px;
-  }
 }
 
 .support-comment .comment-body code {
