@@ -19,8 +19,19 @@
   font-size: 14px;
 }
 
-.support-comment .comment-body {
+.troubleshoot-alert p, .comment-body p, ul, pre{
+  padding-bottom: 10px;
+}
+
+.troubleshoot-alert{
+  .pf-v5-c-alert__action-group{
+    padding-top: 0px;
+  }
+}
+
+.support-comment .comment-body code {
   word-break: break-word;
+  text-wrap: wrap;
 }
 
 .comment-note {
@@ -32,7 +43,7 @@
 .support-comment {
   display: block;
   margin-bottom: 1rem;
-  padding: 0.8rem 1.3rem 0.8rem 1.5rem;
+  padding: 0.8rem 1.5rem;
   background-color: #fff;
   color: #252525;
   border: 1px solid #d2d2d2;
