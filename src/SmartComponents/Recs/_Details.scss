@@ -10,21 +10,26 @@
   }
 }
 
-.troubleshoot-alert{
+.troubleshoot-alert {
   --pf-v5-c-alert--BoxShadow: var(--pf-v5-c-alert--m-inline--BoxShadow);
-  --pf-v5-c-alert--BackgroundColor: var(--pf-v5-c-alert--m-inline--BackgroundColor);
+  --pf-v5-c-alert--BackgroundColor: var(
+    --pf-v5-c-alert--m-inline--BackgroundColor
+  );
 }
 
-.comment-body{
+.comment-body {
   font-size: 14px;
 }
 
-.troubleshoot-alert p, .comment-body p, ul, pre{
+.troubleshoot-alert p,
+.comment-body p,
+ul,
+pre {
   padding-bottom: 10px;
 }
 
-.troubleshoot-alert{
-  .pf-v5-c-alert__action-group{
+.troubleshoot-alert {
+  .pf-v5-c-alert__action-group {
     padding-top: 0px;
   }
 }
